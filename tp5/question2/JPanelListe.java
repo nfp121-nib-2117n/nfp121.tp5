@@ -62,8 +62,12 @@ public class JPanelListe extends JPanel implements ActionListener, ItemListener 
         add(cmd, "North");
         add(texte, "Center");
 
+        // Adding listeners
         boutonRechercher.addActionListener(this);
-        // à compléter;
+        boutonRetirer.addActionListener(this);
+        boutonOccurrences.addActionListener(this);
+        ordreCroissant.addItemListener(this);
+        ordreDecroissant.addItemListener(this);
 
     }
 
@@ -95,18 +99,30 @@ public class JPanelListe extends JPanel implements ActionListener, ItemListener 
 
     public void itemStateChanged(ItemEvent ie) {
         if (ie.getSource() == ordreCroissant)
-            ;// à compléter
+            // Ascending order
+            Collections.sort(liste);
         else if (ie.getSource() == ordreDecroissant)
-            ;// à compléter
+            // Descending order
+            Collections.sort(liste, Collections.reverseOrder());
 
         texte.setText(liste.toString());
     }
 
     private boolean retirerDeLaListeTousLesElementsCommencantPar(String prefixe) {
         boolean resultat = false;
-        // à compléter
-        // à compléter
-        // à compléter
+        if (prefixe == null || prefixe.isEmpty()) return false;
+        
+        // Temp liste to hold the objects to be removed 
+        // So we don't get the concurrent modification exception since we're iterating through the list
+        List<String> objectsToRemove = new LinkedList<String>();
+        // Check for each element in liste if the string starts with prefixe add it to the objectsToRemove
+        for (String mot : liste) {
+            // Remove it
+            if (mot.startsWith(prefixe)) objectsToRemove.add(mot);
+            occurrences.put(mot, 0);
+        }
+        if (objectsToRemove.size() > 0 ) resultat = true;
+        liste.removeAll(objectsToRemove);
         return resultat;
     }
 

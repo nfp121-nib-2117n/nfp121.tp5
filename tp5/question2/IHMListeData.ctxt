@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=IHMListeData
+comment0.text=\n\ Write\ a\ description\ of\ class\ IHMListeData\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=IHMListeData()
+comment2.params=liste
+comment2.target=void\ setListe(java.util.List)
+comment3.params=occurences
+comment3.target=void\ setOccurence(java.util.Map)
+comment4.params=message
+comment4.target=void\ setMessage(java.lang.String)
+comment5.params=
+comment5.target=IHMListeMemento\ createMemento()
+comment5.text=\n\ Create\ position\ memento\ based\ on\ current\ liste\ and\ occurences\n\ @return\ new\ memento\ object\n
+comment6.params=memento
+comment6.target=void\ setMemento(IHMListeMemento)
+comment6.text=\n\ Restore\ to\ given\ liste\ and\ occurences\ saved\ in\ memento\n\ @param\ memento\ input\ memento\n
+numComments=7

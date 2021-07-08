@@ -3,6 +3,7 @@ package question2;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.Stack;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,11 +34,17 @@ public class JPanelListe2 extends JPanel implements ActionListener, ItemListener
 
     private List<String> liste;
     private Map<String, Integer> occurrences;
+    // Memento objects
+    private IHMListeMementoCareTaker mementoCareTaker;
+    private IHMListeData mementoData;
 
     public JPanelListe2(List<String> liste, Map<String, Integer> occurrences) {
         this.liste = liste;
         this.occurrences = occurrences;
-
+        // initialize memento objects
+        mementoCareTaker = new IHMListeMementoCareTaker();
+        mementoData = new IHMListeData();
+        
         cmd.setLayout(new GridLayout(3, 1));
 
         cmd.add(afficheur);
@@ -67,7 +74,11 @@ public class JPanelListe2 extends JPanel implements ActionListener, ItemListener
         add(texte, "Center");
 
         boutonRechercher.addActionListener(this);
-        // à compléter;
+        boutonRetirer.addActionListener(this);
+        boutonOccurrences.addActionListener(this);
+        boutonAnnuler.addActionListener(this);
+        ordreCroissant.addItemListener(this);
+        ordreDecroissant.addItemListener(this);
 
     }
 
@@ -91,29 +102,58 @@ public class JPanelListe2 extends JPanel implements ActionListener, ItemListener
                     afficheur.setText(" -->  " + occur + " occurrence(s)");
                 else
                     afficheur.setText(" -->  ??? ");
+            } else if (ae.getSource() == boutonAnnuler) {
+                annulerOperation();
             }
             texte.setText(liste.toString());
-
         } catch (Exception e) {
             afficheur.setText(e.toString());
+        }
+        if (ae.getSource() != boutonAnnuler) {
+            mementoData.setListe(this.liste);
+            mementoData.setOccurence(this.occurrences);
+            mementoData.setMessage(afficheur.getText());
+            mementoCareTaker.saveData(mementoData.createMemento());
         }
     }
 
     public void itemStateChanged(ItemEvent ie) {
         if (ie.getSource() == ordreCroissant)
-        ;// à compléter
+            // Ascending order
+            Collections.sort(liste);
         else if (ie.getSource() == ordreDecroissant)
-        ;// à compléter
+            // Descending order
+            Collections.sort(liste, Collections.reverseOrder());
 
         texte.setText(liste.toString());
     }
 
     private boolean retirerDeLaListeTousLesElementsCommencantPar(String prefixe) {
         boolean resultat = false;
-        // à compléter
-        // à compléter
-        // à compléter
+        if (prefixe == null || prefixe.isEmpty()) return false;
+        
+        // Temp liste to hold the objects to be removed 
+        // So we don't get the concurrent modification exception since we're iterating through the list
+        List<String> objectsToRemove = new LinkedList<String>();
+        // Check for each element in liste if the string starts with prefixe add it to the objectsToRemove
+        for (String mot : liste) {
+            // Remove it
+            if (mot.startsWith(prefixe)) objectsToRemove.add(mot);
+            occurrences.put(mot, 0);
+        }
+        if (objectsToRemove.size() > 0 ) resultat = true;
+        liste.removeAll(objectsToRemove);
         return resultat;
     }
-
+    
+    private void annulerOperation() {
+        try {
+            IHMListeMemento annulerObj = mementoCareTaker.getData();
+            mementoData.setMemento(annulerObj);
+            this.liste = annulerObj.getListe();
+            this.occurrences = annulerObj.getOccurences();
+            afficheur.setText(annulerObj.getMessage());
+        } catch (Exception e) {
+        }
+    }
 }

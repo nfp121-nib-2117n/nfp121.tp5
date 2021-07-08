@@ -2,8 +2,9 @@ package question1;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
-public class IHMTestEnsemble extends JFrame {
+public class IHMTestEnsemble extends JFrame implements ActionListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JPanel panel1;
@@ -71,42 +72,30 @@ public class IHMTestEnsemble extends JFrame {
         button1 = new JButton("union");
         button1.setBackground(java.awt.Color.red);
         button1.setName("union");
-        button1.addActionListener(null  // à compléter, par une instance de
-                                        // classe anonyme, usage de
-                                        // unionActionPerformed voir en bas de
-                                        // page
-        );
+        // Add action listener
+        button1.addActionListener(this);
 
         panel3.add(button1);
         button2 = new JButton("intersection");
         button2.setBackground(java.awt.Color.yellow);
         button2.setName("intersection");
-        button2.addActionListener(null  // à compléter, par une instance de
-                                        // classe anonyme,
-                                        // intersectionActionPerformed voir en
-                                        // bas de page
-        );
+        // Add action listener
+        button2.addActionListener(this);
 
         panel3.add(button2);
         button3 = new JButton("difference");
         button3.setBackground(java.awt.Color.pink);
         button3.setActionCommand("difference");
         button3.setName("difference");
-        button3.addActionListener(null  // à compléter, par une instance de
-                                        // classe anonyme, usage de
-                                        // differenceActionPerformed voir en bas
-                                        // de page
-        );
+        // Add action listener
+        button3.addActionListener(this);
 
         panel3.add(button3);
         button4 = new JButton("diffSymetrique");
         button4.setBackground(java.awt.Color.cyan);
         button4.setName("diffSymetrique");
-        button4.addActionListener(null  // à compléter, par une instance de
-                                        // classe anonyme, usgae de
-                                        // diffSymetriqueActionPerformed voir en
-                                        // bas de page
-        );
+        // Add action listener
+        button4.addActionListener(this);
 
         panel3.add(button4);
         add(panel3);
@@ -136,6 +125,20 @@ public class IHMTestEnsemble extends JFrame {
             e.add(st.nextToken());
         }
         return e;
+    }
+    
+    // Action Listener
+    public void actionPerformed(ActionEvent e) { 
+        Object source = e.getSource();
+        if (source == button1) {
+            this.unionActionPerformed(e);
+        } else if (source == button2) {
+            this.intersectionActionPerformed(e);
+        } else if (source == button3) {
+            this.differenceActionPerformed(e);
+        } else {
+            this.diffSymetriqueActionPerformed(e);   
+        }
     }
 
     // ne pas modifier ces lignes

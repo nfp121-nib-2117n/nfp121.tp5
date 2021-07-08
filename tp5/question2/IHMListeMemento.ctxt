@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=IHMListeMemento
+comment0.text=\n\ Write\ a\ description\ of\ class\ IHMListeMemento\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=liste\ occurences\ message
+comment1.target=IHMListeMemento(java.util.List,\ java.util.Map,\ java.lang.String)
+comment2.params=
+comment2.target=java.util.List\ getListe()
+comment3.params=
+comment3.target=java.util.Map\ getOccurences()
+comment4.params=
+comment4.target=java.lang.String\ getMessage()
+numComments=5

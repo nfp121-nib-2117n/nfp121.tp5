@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=IHMListeMementoCareTaker
+comment0.text=\n\ Write\ a\ description\ of\ class\ IHMListeMementoCareTaker\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=IHMListeMementoCareTaker()
+comment2.params=memento
+comment2.target=void\ saveData(IHMListeMemento)
+comment3.params=
+comment3.target=IHMListeMemento\ getData()
+numComments=4
